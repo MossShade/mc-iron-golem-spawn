@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "golem-spawn-checker",
+  "version": "${version}",
+  "name": "golem-spawn-checker",
+  "description": "",
+  "authors": ["MossShade"],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/golem-spawn-checker/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.mossshade.golemSpawnChecker.client.GolemSpawnCheckerClient"
+    ],
+    "main": [
+      "com.mossshade.golemSpawnChecker.GolemSpawnChecker"
+    ]
+  },
+  "mixins": [
+    "golem-spawn-checker.mixins.json",
+    {
+      "config": "golem-spawn-checker.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
