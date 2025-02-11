@@ -3,27 +3,20 @@
   "id": "golem-spawn-checker",
   "version": "${version}",
   "name": "golem-spawn-checker",
-  "description": "",
+  "description": "Shows the area where Iron Golems can spawn by villagers.",
   "authors": ["MossShade"],
-  "contact": {},
-  "license": "All-Rights-Reserved",
+  "contact": {
+    "sources": "https://github.com/MossShade/mc-iron-golem-spawn",
+    "issues": "https://github.com/MossShade/mc-iron-golem-spawn/issues"
+  },
+  "license": "AGPL-3.0-only",
   "icon": "assets/golem-spawn-checker/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
       "com.mossshade.golemSpawnChecker.client.GolemSpawnCheckerClient"
-    ],
-    "main": [
-      "com.mossshade.golemSpawnChecker.GolemSpawnChecker"
     ]
   },
-  "mixins": [
-    "golem-spawn-checker.mixins.json",
-    {
-      "config": "golem-spawn-checker.client.mixins.json",
-      "environment": "client"
-    }
-  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
