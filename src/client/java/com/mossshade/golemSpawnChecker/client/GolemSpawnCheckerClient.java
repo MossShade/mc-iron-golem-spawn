@@ -14,21 +14,21 @@ public class GolemSpawnCheckerClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         scanKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.golemspawnchecker.scan",
+                Constants.SCAN_KEY,
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_LEFT_BRACKET,
-                "category.golemspawnchecker"
+                Constants.CATEGORY
         ));
         clearKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.golemspawnchecker.clear",
+                Constants.CLEAR_KEY,
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_RIGHT_BRACKET,
-                "category.golemspawnchecker"
+                Constants.CATEGORY
         ));
 
-        GolemSpawnKeyHandler.register();
+        KeyHandler.register();
 
-        WorldRenderEvents.LAST.register(GolemSpawnRenderer::render);
+        WorldRenderEvents.LAST.register(Renderer::render);
     }
 
     public static KeyBinding getScanKey() {

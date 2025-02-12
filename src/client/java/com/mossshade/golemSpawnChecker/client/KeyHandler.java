@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 import java.util.Optional;
 
-public class GolemSpawnKeyHandler {
+public class KeyHandler {
     private static final MinecraftClient client = MinecraftClient.getInstance();
 
     public static void register() {
@@ -18,7 +18,7 @@ public class GolemSpawnKeyHandler {
             if (GolemSpawnCheckerClient.getScanKey().wasPressed()) {
                 scanForGolemSpawns();
             } else if (GolemSpawnCheckerClient.getClearKey().wasPressed()) {
-                GolemSpawnTracker.clearSpawnPositions();
+                SpawnPositionTracker.clearSpawnPositions();
             }
         });
     }
@@ -26,7 +26,7 @@ public class GolemSpawnKeyHandler {
     private static void scanForGolemSpawns() {
         if (client.world == null || client.player == null) return;
 
-        GolemSpawnTracker.clearSpawnPositions(); // Clear previous spawn positions
+        SpawnPositionTracker.clearSpawnPositions(); // Clear previous spawn positions
 
         World world = client.world;
         BlockPos playerPos = client.player.getBlockPos();
@@ -50,7 +50,7 @@ public class GolemSpawnKeyHandler {
                     false
             );
 
-            golemCheck.ifPresent(GolemSpawnTracker::addSpawnPosition);
+            golemCheck.ifPresent(SpawnPositionTracker::addSpawnPosition);
         }
 
         testGolem.discard();

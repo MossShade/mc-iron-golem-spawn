@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 
 import java.util.Optional;
 
+// Refactored from game code: LargeEntitySpawnHelper.java
 public class IronGolemEntitySpawnHelper {
     public static Optional<BlockPos.Mutable> trySpawnAt(
             IronGolemEntity mobEntity,

@@ -12,7 +12,7 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.Set;
 
-public class GolemSpawnRenderer {
+public class Renderer {
     private static final MinecraftClient client = MinecraftClient.getInstance();
 
     public static void render(WorldRenderContext context) {
@@ -26,7 +26,7 @@ public class GolemSpawnRenderer {
         VertexConsumerProvider.Immediate vertexConsumers = client.getBufferBuilders().getEntityVertexConsumers();
 
         // Get valid Iron Golem spawn positions
-        Set<BlockPos> spawnPositions = GolemSpawnTracker.getValidSpawnPositions();
+        Set<BlockPos> spawnPositions = SpawnPositionTracker.getValidSpawnPositions();
 
         for (BlockPos pos : spawnPositions) {
             drawDebugBox(matrices, vertexConsumers, pos, camPos);
