@@ -18,12 +18,9 @@ The mod will use the in-game code to check Iron Golem spawns in a 17×13×17 box
 Left bracket `[`: calculates a new bounding box around the player and checks for spawns.  
 Right bracket `]`: Hides the overlay.
 
-## Issues
-Since the mod uses the in-game logic to check for spawns, the following issue occurs:  
-- When a mob/entity intersects a block that a spawn can occur on, it will not be highlighted by the overlay.  
-This issue will be fixed in a later update. 
+## Features
+- Supports Mod menu
+- Option to turn on/off mob hitbox collision during calculation
 
 ## TODO
-- [ ] Allow rebinding of keys through config
-- [ ] Support Mod menu
-- [ ] Add option to ignore mob collision
+- [ ] Add option to configure calculation area

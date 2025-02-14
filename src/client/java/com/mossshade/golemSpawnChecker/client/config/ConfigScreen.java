@@ -6,9 +6,12 @@ import com.mossshade.golemSpawnChecker.client.config.dimensions.CenteredElement;
 import com.mossshade.golemSpawnChecker.client.config.dimensions.ElementDimensions;
 import com.mossshade.golemSpawnChecker.client.config.dimensions.LeftJustifiedElement;
 import com.mossshade.golemSpawnChecker.client.config.dimensions.RightJustifiedElement;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.CyclingButtonWidget;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
@@ -23,6 +26,7 @@ public class ConfigScreen extends Screen {
 
     private final KeyBinding scanKey;
     private final KeyBinding clearKey;
+    private final Boolean calculateHitbox;
 
     public ConfigScreen(Screen parent) {
         super(Text.translatable(Constants.CATEGORY));
@@ -30,9 +34,14 @@ public class ConfigScreen extends Screen {
 
         this.scanKey = GolemSpawnCheckerClient.getScanKey();
         this.clearKey = GolemSpawnCheckerClient.getClearKey();
+        this.calculateHitbox = GolemSpawnCheckerClient.getCalculateHitbox();
 
         elementTracker.addElement(Constants.SCAN_KEY, new RightJustifiedElement(40, 20), true, 0xFFFFFF);
         elementTracker.addElement(Constants.CLEAR_KEY, new RightJustifiedElement(40, 20), true, 0xFFFFFF);
+
+        elementTracker.addSpacer(20);
+
+        elementTracker.addElement(Constants.CALCULATE_HITBOX, new CenteredElement(200, 20));
 
         elementTracker.addSpacer(50);
 
@@ -49,6 +58,8 @@ public class ConfigScreen extends Screen {
                         elementTracker.getDimensions(Constants.SCAN_KEY).width,
                         elementTracker.getDimensions(Constants.SCAN_KEY).height
                 )
+                .tooltip(Tooltip.of(Text.translatable(Constants.SCAN_KEY)))
+                .narrationSupplier(narration -> Text.translatable(Constants.SCAN_KEY).append(" ").append(Text.translatable(Constants.KEYBINDING)))
                 .build());
 
         this.addDrawableChild(ButtonWidget.builder(Text.translatable(clearKey.getBoundKeyTranslationKey()),
@@ -59,7 +70,27 @@ public class ConfigScreen extends Screen {
                         elementTracker.getDimensions(Constants.CLEAR_KEY).width,
                         elementTracker.getDimensions(Constants.CLEAR_KEY).height
                 )
+                .tooltip(Tooltip.of(Text.translatable(Constants.CLEAR_KEY)))
+                .narrationSupplier(narration -> Text.translatable(Constants.CLEAR_KEY).append(" ").append(Text.translatable(Constants.KEYBINDING)))
                 .build());
+
+        this.addDrawableChild(CyclingButtonWidget.onOffBuilder(calculateHitbox)
+                .narration(booleanCyclingButtonWidget -> Text.translatable(Constants.CALCULATE_HITBOX)
+                        .append(" ")
+                        .append(booleanCyclingButtonWidget.getGenericNarrationMessage())
+                )
+                .build(
+                        elementTracker.getDimensions(Constants.CALCULATE_HITBOX).getX(width),
+                        elementTracker.getYFor(Constants.CALCULATE_HITBOX, height),
+                        elementTracker.getDimensions(Constants.CALCULATE_HITBOX).width,
+                        elementTracker.getDimensions(Constants.CALCULATE_HITBOX).height,
+                        Text.translatable(Constants.CALCULATE_HITBOX),
+                        (checkbox, value) -> {
+                            GolemSpawnCheckerClient.setCalculateHitbox(value);
+                            ConfigManager.setCalculateHibox(value);
+                        }
+                )
+        );
 
         this.addDrawableChild(ButtonWidget.builder(Text.translatable(Constants.DONE_BUTTON),
                         button -> {
@@ -99,6 +130,8 @@ public class ConfigScreen extends Screen {
 
     private boolean setKey(final KeyBinding key, int keyCode, int scanCode) {
         key.setBoundKey(InputUtil.fromKeyCode(keyCode, scanCode));
+        MinecraftClient.getInstance().options.write();
+
         listeningForKey = "";
         if (this.client != null) {
             this.client.setScreen(new ConfigScreen(parent));

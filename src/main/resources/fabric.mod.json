@@ -20,6 +20,12 @@
       "com.mossshade.golemSpawnChecker.client.config.ModMenuApiImpl"
     ]
   },
+  "mixins": [
+    {
+      "config": "golem-spawn-checker.client.mixins.json",
+      "environment": "client"
+    }
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",

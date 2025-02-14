@@ -38,6 +38,8 @@ dependencies {
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+    modImplementation "com.google.code.gson:gson:2.12.1"
+
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 

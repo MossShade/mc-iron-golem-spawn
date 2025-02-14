@@ -1,6 +1,8 @@
 {
+  "key": "keybinding",
   "category.golemspawnchecker": "Iron Golem Spawn Checker",
   "key.golemspawnchecker.scan": "Display spawn locations",
   "key.golemspawnchecker.clear": "Hide spawn overlay",
-  "gui.done": "Doone"
+  "cycling-button.golemspawnchecker.hitbox": "Calculate with mob hitbox",
+  "gui.done": "Done"
 }

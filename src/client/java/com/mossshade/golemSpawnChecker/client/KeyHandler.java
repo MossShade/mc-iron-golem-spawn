@@ -35,6 +35,10 @@ public class KeyHandler {
         // Create a temporary Iron Golem entity at the test position
         IronGolemEntity testGolem = new IronGolemEntity(EntityType.IRON_GOLEM, world);
 
+        if (!GolemSpawnCheckerClient.getCalculateHitbox()) {
+            GolemSpawnCheckerOverride.enableOverride();
+        }
+
         for (BlockPos pos : BlockPos.iterate(
                 playerPos.add(-radius, 0, -radius),
                 playerPos.add(radius, 0, radius))) {
@@ -52,6 +56,8 @@ public class KeyHandler {
 
             golemCheck.ifPresent(SpawnPositionTracker::addSpawnPosition);
         }
+
+        GolemSpawnCheckerOverride.disableOverride();
 
         testGolem.discard();
     }
